@@ -19,4 +19,6 @@
         <item name="cornerRadius">@dimen/button_corner_radius</item>
     </style>
 
+    <!-- New button Styles go here -->
+
 </resources>
