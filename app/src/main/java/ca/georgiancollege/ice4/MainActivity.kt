@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity()
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
+        // initializing the binding (between the generated class)
         binding = ActivityMainBinding.inflate(layoutInflater)
         enableEdgeToEdge()
         setContentView(binding.root)
@@ -29,24 +30,44 @@ class MainActivity : AppCompatActivity()
             insets
         }
 
-        val numberButtons = listOf(
+        // initialize buttons
+        numberButtons = listOf(
             binding.zeroButton, binding.oneButton, binding.twoButton,
             binding.threeButton, binding.fourButton, binding.fiveButton,
             binding.sixButton, binding.sevenButton, binding.eightButton,
             binding.nineButton, binding.decimalButton
         )
 
-        val operatorButtons = listOf(
+        operatorButtons = listOf(
             binding.plusButton, binding.minusButton,
             binding.multiplyButton, binding.divideButton
         )
 
-        val modifierButtons = listOf(
+        modifierButtons = listOf(
             binding.percentButton, binding.plusMinusButton,
             binding.clearButton, binding.deleteButton
         )
 
+        configureNumberInput()
+    }
 
-
+    private fun configureNumberInput()
+    {
+        numberButtons.forEach { button ->
+            // for each button in the numberButtons list set an On click Listener
+            button.setOnClickListener {
+                // display the number pressed in the resultEditText
+                val currentResultText = binding.resultEditText.text.toString()
+                // If the current result is "0", replace it with the new number
+                if (currentResultText == "0")
+                {
+                    binding.resultEditText.setText(button.text)
+                }
+                else // Otherwise, append the new number to the existing result
+                {
+                    binding.resultEditText.append(button.text)
+                }
+            }
+        }
     }
 }
